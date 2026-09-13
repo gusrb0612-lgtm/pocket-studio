@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Pocket Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0f1115">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pocket Studio">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button id="playBtn" class="play" aria-label="재생">▶</button>
+  <div class="tempo">
+    <button class="step-btn" data-bpm="-4" aria-label="템포 내리기">−</button>
+    <span class="bpm"><b id="bpmValue">96</b><i>BPM</i></span>
+    <button class="step-btn" data-bpm="4" aria-label="템포 올리기">+</button>
+  </div>
+  <button id="exportBtn" class="export">내보내기</button>
+</header>
+
+<main>
+
+  <!-- 패턴 ─ 한 덩어리 16스텝. 여러 개 만들어 곡 구성에 늘어놓는다 -->
+  <section class="strip">
+    <span class="strip-label">패턴</span>
+    <div id="patternTabs" class="chips grow"></div>
+    <button id="patCopyBtn" class="mini">복사</button>
+    <button id="patClearBtn" class="mini">비우기</button>
+  </section>
+
+  <!-- 격자 -->
+  <section class="grid-section">
+    <div id="ruler" class="ruler"></div>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- 멜로디 트랙일 때만 뜨는 음높이 선택 -->
+  <section id="pitchStrip" class="strip pitch-strip" hidden>
+    <span class="strip-label">음</span>
+    <div id="pitchChips" class="chips grow"></div>
+    <button class="step-btn" data-octave="-1" aria-label="옥타브 내리기">8↓</button>
+    <button class="step-btn" data-octave="1" aria-label="옥타브 올리기">8↑</button>
+  </section>
+
+  <!-- 선택된 트랙의 소리 만들기 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2 id="trackTitle">킥</h2>
+      <div class="panel-head-btns">
+        <button id="muteBtn" class="toggle">뮤트</button>
+        <button id="soloBtn" class="toggle">솔로</button>
+      </div>
+    </div>
+
+    <div class="row-label">악기</div>
+    <div id="instChips" class="chips wrap"></div>
+
+    <div id="trackKnobs" class="knobs"></div>
+
+    <div class="row-label">필터 모양</div>
+    <div id="filterTypeChips" class="chips"></div>
+  </section>
+
+  <!-- 곡 구성 -->
+  <section class="panel">
+    <div class="panel-head"><h2>곡 구성</h2>
+      <div class="panel-head-btns">
+        <button id="arrClearBtn" class="mini">비우기</button>
+      </div>
+    </div>
+    <p class="hint" id="arrHint"></p>
+    <div id="arrangement" class="arrangement"></div>
+    <div class="row-label">뒤에 붙이기</div>
+    <div id="arrAddChips" class="chips"></div>
+  </section>
+
+  <!-- 전체에 걸리는 설정 -->
+  <section class="panel">
+    <div class="panel-head"><h2>전체</h2></div>
+
+    <div class="row-label">스케일 — 여기 음들만 쓰니까 아무거나 찍어도 안 틀린다</div>
+    <div id="scaleChips" class="chips wrap"></div>
+
+    <div class="row-label">기준음</div>
+    <div id="rootChips" class="chips wrap"></div>
+
+    <div class="row-label">에코 간격</div>
+    <div id="delayDivChips" class="chips"></div>
+
+    <div id="globalKnobs" class="knobs"></div>
+  </section>
+
+  <p class="footnote">
+    자동 저장이 없다. 앱을 닫으면 찍은 패턴은 사라진다 — 마음에 드는 게 나오면
+    <b>내보내기</b>로 wav를 뽑아 파일 앱에 저장해 두자.
+  </p>
+
+</main>
+
+<!-- 내보내기 -->
+<div id="exportSheet" class="sheet" hidden>
+  <div class="sheet-inner">
+    <h2 id="exportTitle">내보내기</h2>
+    <p id="exportStatus" class="sheet-status">준비 중…</p>
+    <audio id="exportPreview" controls hidden></audio>
+    <div class="sheet-btns">
+      <button id="saveFileBtn" class="primary" disabled>파일로 저장</button>
+      <button id="exportCloseBtn" class="ghost">닫기</button>
+    </div>
+    <p class="hint" id="exportHint"></p>
+  </div>
+</div>
+
+<script src="music.js"></script>
+<script src="audio.js"></script>
+<script src="wav.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
