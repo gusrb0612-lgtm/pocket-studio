@@ -4,7 +4,7 @@
 
 앱스토어도 Xcode도 개발자 계정도 필요 없다 — 사파리로 열어 "홈 화면에 추가"하면 끝이다.
 
-**주소**: (Pages 배포 후 채운다)
+**주소**: https://gusrb0612-lgtm.github.io/pocket-studio/
 
 ## 뭘 할 수 있나
 
